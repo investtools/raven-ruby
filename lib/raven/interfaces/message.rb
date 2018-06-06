@@ -10,7 +10,11 @@ module Raven
     end
 
     def unformatted_message
-      Array(params).empty? ? message : message % params
+      begin
+        Array(params).empty? ? message : message % params
+      rescue
+        "#{message} % #{params}"
+      end
     end
 
     def self.sentry_alias
